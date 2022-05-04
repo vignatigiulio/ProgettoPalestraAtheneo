@@ -84,3 +84,9 @@ class Cliente(object):
 
     def getAltezza(self, oggetto_cliente):
         return oggetto_cliente.altezza
+
+    def controllaUnicita(self, codice_fiscale):
+        for elem in self.lista_clienti:
+            if elem.codice_fiscale.lower() == codice_fiscale.lower():
+                return False
+        return True

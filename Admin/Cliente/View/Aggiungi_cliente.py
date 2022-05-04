@@ -11,27 +11,30 @@ class aggiungi_cliente(object):
     Controller = metodi_gestione_cliente()
 
     def collega_window_abbonamento(self):
-        self.window_abbonamento = QtWidgets.QMainWindow()
-        self.ui = abbonamento_cliente()
-        self.ui.setupUi(self.window_abbonamento)
-        self.window_abbonamento.show()
-        self.btnSalva.show()
-
-    def salva(self):
         try:
             if self.txtNome.text() != "" and self.txtCognome.text() != "" and self.txtLuogoNascita.text() != "" \
                     and self.txtCodiceFiscale.text() != "":
-                self.Controller.salva(self.txtNome.text(), self.txtCognome.text(), self.txtLuogoNascita.text(),
-                                              self.txtCodiceFiscale.text(), self.cmbSesso.currentText(),
-                                              self.dtdDataDiNascita.date())
-                self.saveWindow.close()
-            else:
-                self.objMetodi.show_popup_exception("Uno o più campi risultano vuoti.")
+                if self.Controller.controllaUnicita(self.txtCodiceFiscale.text()):
+                    self.window_abbonamento = QtWidgets.QMainWindow()
+                    self.ui = abbonamento_cliente()
+                    self.ui.setupUi(self.window_abbonamento)
+                    self.window_abbonamento.show()
+                    self.btnSalva.show()
+                else: self.objMetodi.show_popup_exception("Utente già registrato.")
+            else: self.objMetodi.show_popup_exception("Riempire tutti i campi prima di continuare.")
+        except Exception: self.objMetodi.show_popup_exception("Errore.")
+
+
+    def salva(self):
+        try:
+            self.Controller.salva(self.txtNome.text(), self.txtCognome.text(), self.txtLuogoNascita.text(),
+                                                  self.txtCodiceFiscale.text(), self.cmbSesso.currentText(),
+                                                  self.dtdDataDiNascita.date())
+            self.saveWindow.close()
         except(Exception):
             self.objMetodi.show_popup_exception("Errore")
 
     def setupUi(self, MainWindow):
-
         self.saveWindow = MainWindow
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(689, 495)

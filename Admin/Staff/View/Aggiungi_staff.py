@@ -11,10 +11,13 @@ class aggiungi_personale(object):
         try:
             if self.txtNome.text() != "" and self.txtCognome.text() != "" and self.txtCodiceFiscale.text() != "" \
                     and self.txtOre.text() != "" and self.txtTitolo.text() != "":
-                self.Controller.salva(self.txtNome.text(), self.txtCognome.text(), self.txtCodiceFiscale.text(), self.txtOre.text(),
-                                  self.txtTitolo.text())
-                self.objMetodi.show_popup_ok("Elemento aggiunto con successo.")
-                self.saveWindow.close()
+                if self.Controller.controlloUnicita(self.txtCodiceFiscale.text()):
+                    self.Controller.salva(self.txtNome.text(), self.txtCognome.text(), self.txtCodiceFiscale.text(), self.txtOre.text(),
+                                      self.txtTitolo.text())
+                    self.objMetodi.show_popup_ok("Elemento aggiunto con successo.")
+                    self.saveWindow.close()
+                else:
+                    self.objMetodi.show_popup_exception("Utente già registrato.")
             else:
                 self.objMetodi.show_popup_exception("Uno o più campi risultano vuoti.")
         except(Exception):

@@ -27,4 +27,5 @@ class metodi_gestione_staff(object):
     def resetPassword(self, nome):
         self.objStaff.reset(nome)
 
-
+    def controlloUnicita(self, codice_fiscale):
+        return self.objStaff.controlloUnicita(codice_fiscale)

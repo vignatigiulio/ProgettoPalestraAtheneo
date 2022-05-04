@@ -50,3 +50,9 @@ class Staff(object):
 
     def get_lista(self):
         return self.objMetodi.get_lista(self.lista_staff)
+
+    def controlloUnicita(self, codice_fiscale):
+        for elem in self.lista_staff:
+            if elem.codice_fiscale.lower() == codice_fiscale.lower():
+                return False
+        return True

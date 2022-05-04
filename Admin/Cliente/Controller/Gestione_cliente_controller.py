@@ -15,6 +15,9 @@ class metodi_gestione_cliente(object):
         objCliente.aggiungiAllaLista(objCliente)
         objCliente.scriviLista()
 
+    def controllaUnicita(self, codice_fiscale):
+        return self.objCliente.controllaUnicita(codice_fiscale)
+
     def restituisciOggetto(self, nome):
         return self.objCliente.getAttributi(nome)
 
