@@ -1,53 +1,25 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QCoreApplication
-
+from Gestione_posta_e_account.Cambio_password.Controller.Cambio_password_controller import metodi_cambio_password
 from Metodi_gestione_oggetti.GestioneOggetti import GestioneOggetti
-from Admin.Cliente.Model.Cliente import Cliente
-from Admin.Staff.Model.Staff import Staff
 
 class change_password(object):
+    Controller = metodi_cambio_password()
     username = ""
     objMetodi = GestioneOggetti()
-    caratteri_minimi = 7
-    caratteri_massimi = 17
 
     def impostaPassword(self):
-        if self.cmbTipo.currentText() == "Cliente":
-            try:
-                objCliente = Cliente()
-                objCliente = objCliente.getObject(self.username)
-                password1 = self.txtPassword_1.text()
-                password2 = self.txtPassword_2.text()
-                if password1 == password2:
-                    if len(password1) > self.caratteri_minimi and len(password1) < self.caratteri_massimi:
-                        objCliente.password = password1
-                        objCliente.scriviLista()
-                        self.objMetodi.show_popup_ok("Salvataggio password è andato a buon fine.")
-                        self.finestre.close()
-                    else:
-                        self.objMetodi.show_popup_exception("La password è troppo corta.")
-                else:
-                    self.objMetodi.show_popup_exception("Le due password sono diverse.")
-            except (Exception):
-                self.objMetodi.show_popup_exception("Errore.")
-        else:
-            try:
-                objStaff = Staff()
-                objStaff = objStaff.getObject(self.username)
-                password1 = self.txtPassword_1.text()
-                password2 = self.txtPassword_2.text()
-                if password1 == password2:
-                    if len(password1) > self.caratteri_minimi and len(password1) < self.caratteri_massimi:
-                        objStaff.password = password1
-                        objStaff.scriviLista()
-                        self.objMetodi.show_popup_ok("Salvataggio password è andato a buon fine.")
-                        self.finestre.close()
-                    else:
-                        self.objMetodi.show_popup_exception("La password è troppo corta.")
-                else:
-                    self.objMetodi.show_popup_exception("Le due password sono diverse.")
-            except (Exception):
-                self.objMetodi.show_popup_exception("Errore.")
+        esito_operazione = self.Controller.impostaPassword(self.cmbTipo.currentText(), self.txtPassword_1.text(),
+                                        self.txtPassword_2.text(), self.username)
+        if esito_operazione == 0:
+            self.objMetodi.show_popup_ok("Salvataggio password è andato a buon fine.")
+            self.finestre.close()
+        elif esito_operazione == -1:
+            self.objMetodi.show_popup_exception("La password è troppo corta.")
+        elif esito_operazione == -2:
+            self.objMetodi.show_popup_exception("Le due password sono diverse.")
+        elif esito_operazione == -3:
+            self.objMetodi.show_popup_exception("Errore. Controllare che la tipologia di cliente indicata sia esatta.")
 
     def cancella(self):
         self.txtPassword_1.clear()

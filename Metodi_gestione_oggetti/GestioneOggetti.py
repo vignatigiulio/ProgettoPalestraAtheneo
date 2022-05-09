@@ -73,7 +73,7 @@ class GestioneOggetti(object):
     def resetpassword(name, lista):
         for x in lista:
             if x.nome + " " + x.cognome == name:
-                x.password = "1234"
+                x.password = "Atheneo2022"
                 return
 
     @staticmethod
