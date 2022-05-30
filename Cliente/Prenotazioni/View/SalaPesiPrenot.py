@@ -12,7 +12,7 @@ class prenotazioni_sala_pesi(object):
     numero_massimo = 10
     sala = "Sala Pesi"
 
-    def prenota(self):
+    def prenota_orario(self):
 
         if self.Controller.controlloApertura(self.popupcalendar.selectedDate(), self.giorni_attivi):
             if self.Controller.prenota(self.numero_massimo,
@@ -86,7 +86,7 @@ class prenotazioni_sala_pesi(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-        self.btnPrenota.clicked.connect(self.prenota)
+        self.btnPrenota.clicked.connect(self.prenota_orario)
         self.popupcalendar.setMinimumDate(QDate.currentDate())
         self.cmbOrario.activated[str].connect(self.cmbAttive)
         self.popupcalendar.clicked.connect(self.cmbAttive)

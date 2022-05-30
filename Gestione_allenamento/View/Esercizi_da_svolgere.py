@@ -2,8 +2,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem
 from Gestione_allenamento.Controller.Scheda_allenamento_controller import metodi_scheda_allenamento
 from Metodi_gestione_oggetti.GestioneOggetti import GestioneOggetti
-class scheda_allenamento(object):
 
+
+class scheda_allenamento(object):
     username = ""
     Controller = metodi_scheda_allenamento()
     objMetodi = GestioneOggetti()
@@ -17,7 +18,7 @@ class scheda_allenamento(object):
             row = 0
             colonna = 0
             i = 0
-            while len(oggetto_scheda.nome_esercizi) >= i+1:
+            while len(oggetto_scheda.nome_esercizi) >= i + 1:
                 dati_esercizi = oggetto_scheda.numeri_esercizi[i].split("-")
                 self.Tabella.insertRow(row)
                 self.Tabella.setItem(row, colonna, QTableWidgetItem(oggetto_scheda.nome_esercizi[i]))
@@ -114,7 +115,8 @@ class scheda_allenamento(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Scheda di allenamento"))
-        self.lblTitolo.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Scheda di allenamento</p></body></html>"))
+        self.lblTitolo.setText(
+            _translate("MainWindow", "<html><head/><body><p align=\"center\">Scheda di allenamento</p></body></html>"))
         item = self.Tabella.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Esercizio"))
         item = self.Tabella.horizontalHeaderItem(1)
@@ -130,9 +132,10 @@ class scheda_allenamento(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = scheda_allenamento()
-    ui.setupUi(MainWindow,username= "")
+    ui.setupUi(MainWindow, username="")
     MainWindow.show()
     sys.exit(app.exec_())

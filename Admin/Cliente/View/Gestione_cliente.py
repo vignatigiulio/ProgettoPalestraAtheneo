@@ -4,11 +4,13 @@ from Metodi_gestione_oggetti.GestioneOggetti import GestioneOggetti
 from Admin.Cliente.Model.Cliente import Cliente
 from Admin.Cliente.Controller.Gestione_cliente_controller import metodi_gestione_cliente
 
+
 class gestione_cliente(object):
     objCliente = Cliente()
     objMetodi = GestioneOggetti()
     Controller = metodi_gestione_cliente()
-    def visualizza(self):
+
+    def visualizza_info(self):
         data_odierna = QDate.currentDate()
         oggetto_cliente = self.Controller.restituisciOggetto(self.nome)
         self.txtNome.setText(oggetto_cliente.nome)
@@ -27,19 +29,19 @@ class gestione_cliente(object):
         self.dtdScadenzaCertMedico.setDate(oggetto_cliente.objAbbonamento.data_certificato_medico)
         self.cmbTipoAbbonamento.setCurrentText(oggetto_cliente.objAbbonamento.tipo_di_abbonamento)
 
-    def salvamodifiche(self):
+    def salva_modifiche(self):
         if self.txtNome.text() != "" and self.txtCognome.text() != "" \
                 and self.txtLuogoDiNascita.text() != "" and self.txtCodiceFiscale.text() != "":
             try:
                 oggetto_cliente = self.Controller.restituisciOggetto(self.nome)
                 if oggetto_cliente.nome == self.txtNome.text() and oggetto_cliente.cognome == self.txtCognome.text() and \
-                    oggetto_cliente.sesso == self.cmbSesso.currentText() and \
-                    oggetto_cliente.data_nascita == self.txtDataDiNascita.date() and \
-                    oggetto_cliente.luogo_nascita == self.txtLuogoDiNascita.text() and \
-                    oggetto_cliente.codice_fiscale == self.txtCodiceFiscale.text() and \
-                    oggetto_cliente.objAbbonamento.data_iscrizione == self.dtdDataIscrizione.date() and \
-                    oggetto_cliente.objAbbonamento.data_certificato_medico == self.dtdScadenzaCertMedico.date() and \
-                    oggetto_cliente.objAbbonamento.tipo_di_abbonamento == self.cmbTipoAbbonamento.currentText():
+                        oggetto_cliente.sesso == self.cmbSesso.currentText() and \
+                        oggetto_cliente.data_nascita == self.txtDataDiNascita.date() and \
+                        oggetto_cliente.luogo_nascita == self.txtLuogoDiNascita.text() and \
+                        oggetto_cliente.codice_fiscale == self.txtCodiceFiscale.text() and \
+                        oggetto_cliente.objAbbonamento.data_iscrizione == self.dtdDataIscrizione.date() and \
+                        oggetto_cliente.objAbbonamento.data_certificato_medico == self.dtdScadenzaCertMedico.date() and \
+                        oggetto_cliente.objAbbonamento.tipo_di_abbonamento == self.cmbTipoAbbonamento.currentText():
                     self.objMetodi.show_popup_exception("Nessun campo modificato.")
                 else:
                     self.Controller.rimuoviCliente(self.nome)
@@ -60,7 +62,6 @@ class gestione_cliente(object):
         else:
             self.objMetodi.show_popup_exception("Uno o più campi risultano vuoti.")
 
-
     def pulisciCaselle(self):
         self.txtNome.clear()
         self.txtCognome.clear()
@@ -72,7 +73,7 @@ class gestione_cliente(object):
         self.dtdDataIscrizione.clear()
         self.dtdScadenzaCertMedico.clear()
 
-    def rimuovi(self):
+    def rimuovi_cliente(self):
         try:
             self.Controller.eliminaCliente(self.nome)
             self.pulisciCaselle()
@@ -80,7 +81,7 @@ class gestione_cliente(object):
         except(Exception):
             self.objMetodi.show_popup_exception("Errore!")
 
-    def reset(self):
+    def reset_password(self):
         self.Controller.resetPassword(self.nome)
         self.objMetodi.show_popup_ok("La password è stata ripristinata")
 
@@ -197,10 +198,10 @@ class gestione_cliente(object):
         self.txtCognome.setReadOnly(True)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.visualizza()
-        self.btnSalva.clicked.connect(self.salvamodifiche)
-        self.btnReset.clicked.connect(self.reset)
-        self.btnRimuovi.clicked.connect(self.rimuovi)
+        self.visualizza_info()
+        self.btnSalva.clicked.connect(self.salva_modifiche)
+        self.btnReset.clicked.connect(self.reset_password)
+        self.btnRimuovi.clicked.connect(self.rimuovi_cliente)
         self.btn_Indietro.clicked.connect(self.finestra.close)
 
     def retranslateUi(self, MainWindow):

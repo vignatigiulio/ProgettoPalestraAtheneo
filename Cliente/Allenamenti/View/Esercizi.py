@@ -67,7 +67,7 @@ class allenamento(object):
         if self.checkBox_27.isChecked() is True:
             self.vettore_preferenze.append(self.checkBox_27.text())
 
-    def salvaEsercizio(self):
+    def salvaEsercizi(self):
         try:
             self.popolaArray()
             self.Controller.creaOggetto(self.username, self.vettore_preferenze)
@@ -431,7 +431,7 @@ class allenamento(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.btn_salva.clicked.connect(self.salvaEsercizio)
+        self.btn_salva.clicked.connect(self.salvaEsercizi)
 
 
     def retranslateUi(self, MainWindow):

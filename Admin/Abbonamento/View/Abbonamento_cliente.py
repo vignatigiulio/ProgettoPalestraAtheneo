@@ -7,7 +7,7 @@ class abbonamento_cliente(object):
     objMetodi = GestioneOggetti()
     Controller = metodi_abbonamento_cliente()
 
-    def create_object_abbonamento(self):
+    def crea_abbonamento(self):
         try:
             tipo_abbonamento = ""
             data_iscrizione = self.dtdDataIscrizione.date()
@@ -163,7 +163,7 @@ class abbonamento_cliente(object):
         MainWindow.setStatusBar(self.statusbar)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.btnAggiungi.clicked.connect(self.create_object_abbonamento)
+        self.btnAggiungi.clicked.connect(self.crea_abbonamento)
         self.btnAnnulla.clicked.connect(self.AbbonamentoWindow.close)
         self.dtdCertificatoMedico.setDate(self.dtdCertificatoMedico.date().currentDate())
         self.dtdDataIscrizione.setDate(self.dtdDataIscrizione.date().currentDate())

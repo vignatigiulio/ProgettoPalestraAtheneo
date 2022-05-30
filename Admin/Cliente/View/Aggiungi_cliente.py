@@ -10,7 +10,7 @@ class aggiungi_cliente(object):
     objMetodi = GestioneOggetti()
     Controller = metodi_gestione_cliente()
 
-    def collega_window_abbonamento(self):
+    def conferma_credenziali(self):
         try:
             if self.txtNome.text() != "" and self.txtCognome.text() != "" and self.txtLuogoNascita.text() != "" \
                     and self.txtCodiceFiscale.text() != "":
@@ -137,7 +137,7 @@ class aggiungi_cliente(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.btnSalva.hide()
-        self.btnAvanti.clicked.connect(self.collega_window_abbonamento)
+        self.btnAvanti.clicked.connect(self.conferma_credenziali)
         self.btnSalva.clicked.connect(self.salva)
 
     def retranslateUi(self, MainWindow):

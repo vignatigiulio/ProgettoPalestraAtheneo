@@ -26,24 +26,24 @@ class GestioneOrari(object):
         self.ptxCasella.clear()
         if self.Controller.controllaGiorno(self.cmbTipo.currentText(),
                                            self.calendarWidget.selectedDate().toString()[:3]):
-            self.controllaTurno()
+            self.stampa_turno()
             self.validita_giorno = True
         else:
             self.objMetodi.show_popup_exception("Selezionare un giorno corretto.")
             self.validita_giorno = False
 
-    def salva(self):
+    def salva_orario(self):
         if self.calendarWidget.selectedDate().toString() != "" and self.validita_giorno:
             if self.Controller.salva(self.calendarWidget.selectedDate().toString(), self.cmbFasciaOraria.currentText(),
                                   self.username, self.spbPaga.text(), self.cmbTipo.currentText()):
-                self.controllaTurno()
+                self.stampa_turno()
                 self.objMetodi.show_popup_ok("Salvato con successo.")
             else:
                 self.objMetodi.show_popup_exception("Esiste già un turno uguale.")
         else:
             self.objMetodi.show_popup_exception("Selezionare una data.")
 
-    def controllaTurno(self):
+    def stampa_turno(self):
         self.ptxCasella.clear()
         listaprenotati = self.Controller.restituisciListaControllaTurno(self.calendarWidget.selectedDate().toString())
         for elem in listaprenotati:
@@ -51,7 +51,7 @@ class GestioneOrari(object):
                 "In data " + elem.data + " dalle " + elem.orario +
                 " nella sala " + elem.tipo + " è presente " + elem.staff)
 
-    def rimuoviGiornata(self):
+    def rimuovi_orario(self):
         if self.Controller.presenzaTurno(self.username, self.calendarWidget.selectedDate().toString()):
             if self.objMetodi.show_popup_question("Verrà rimosso il turno di " + self.username + " dalla giornata di " +
                                                   self.calendarWidget.selectedDate().toString() + " delle " +
@@ -59,12 +59,12 @@ class GestioneOrari(object):
                 self.Controller.rimuoviTurno(self.username, self.calendarWidget.selectedDate().toString(),
                                              self.cmbFasciaOraria.currentText(), self.cmbTipo.currentText())
 
-                self.controllaTurno()
+                self.stampa_turno()
                 self.objMetodi.show_popup_ok("Rimosso con successo.")
         else:
             self.objMetodi.show_popup_exception("Impossibile trovare " + self.username + " nella giornata di "
                                                 + self.calendarWidget.selectedDate().toString())
-            self.controllaTurno()
+            self.stampa_turno()
 
     def setupUi(self, MainWindow, username):
         self.username = username
@@ -118,7 +118,6 @@ class GestioneOrari(object):
         self.cmbFasciaOraria.setObjectName(u"cmbInizio")
         self.cmbFasciaOraria.setGeometry(QRect(380, 20, 131, 22))
         self.cmbFasciaOraria.setEditable(True)
-        self.fasciaOraria()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -131,11 +130,11 @@ class GestioneOrari(object):
         self.calendarWidget.setMinimumDate(QDate.currentDate())
         self.calendarWidget.setMaximumDate(QDate.currentDate().addMonths(3))
         self.calendarWidget.clicked.connect(self.controllaGiorno)
-        self.btnSalva.clicked.connect(self.salva)
+        self.btnSalva.clicked.connect(self.salva_orario)
         self.objOrario.recuperaSalvataggio()
-        self.btnRimuovi.clicked.connect(self.rimuoviGiornata)
+        self.btnRimuovi.clicked.connect(self.rimuovi_orario)
         self.calendarWidget.setSelectedDate(QDate.currentDate())
-        self.controllaTurno()
+        self.stampa_turno()
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Gestione turni", None))

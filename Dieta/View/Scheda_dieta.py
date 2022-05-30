@@ -14,7 +14,7 @@ class dieta_staff(object):
     percorso_file_dieta_personali = "./Dieta/Data/Files_diete_personali/"
 
 
-    def apriFile(self):
+    def invia_file_dieta(self):
         percorso = self.Controller.allegaFile()
         if percorso != "":
             estensione = percorso.split(".")
@@ -303,7 +303,7 @@ class dieta_staff(object):
         self.lblNome.setText(self.utente_da_visualizzare)
         self.nascondi()
         self.rbtnSuggerimenti.clicked.connect(self.appari)
-        self.btnAllegaFile.clicked.connect(self.apriFile)
+        self.btnAllegaFile.clicked.connect(self.invia_file_dieta)
         self.popola_dati_fisiologici()
         self.rbtnNoteCliente.clicked.connect(self.plainTextEdit.show)
         self.btnCalcolaNutrienti.clicked.connect(self.calcola)

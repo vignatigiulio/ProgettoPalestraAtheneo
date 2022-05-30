@@ -11,14 +11,14 @@ class gestione_staff(object):
     objMetodi = GestioneOggetti()
     Controller = metodi_gestione_staff()
 
-    def visualizza(self):
+    def visualizza_info(self):
         oggetto_personale = self.Controller.restituisciOggetto(self.nome)
         self.txtNome.setText(oggetto_personale.nome)
         self.txtCognome.setText(oggetto_personale.cognome)
         self.txtCodiceFiscale.setText(oggetto_personale.codice_fiscale)
         self.txtMansione.setText(oggetto_personale.mansione)
 
-    def salvaModifiche(self):
+    def salva_modifiche(self):
         if self.txtNome.text() != "" and self.txtCognome.text() != "" and self.txtCodiceFiscale.text() != "" \
                 and self.txtMansione.text() != "":
             try:
@@ -47,7 +47,7 @@ class gestione_staff(object):
         self.txtCodiceFiscale.clear()
         self.txtMansione.clear()
 
-    def rimuovi(self):
+    def rimuovi_staff(self):
         try:
             self.Controller.eliminaPersonale(self.nome)
             self.pulisciCaselle()
@@ -56,7 +56,7 @@ class gestione_staff(object):
             self.objMetodi.show_popup_exception("Errore!")
         self.finestra.close()
 
-    def reset(self):
+    def reset_password(self):
         self.Controller.resetPassword(self.nome)
         self.objMetodi.show_popup_ok("Password resettata con successo!")
         self.finestra.close()
@@ -133,12 +133,12 @@ class gestione_staff(object):
         self.txtCodiceFiscale.setReadOnly(True)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.btnSalva.clicked.connect(self.salvaModifiche)
-        self.btnRimuovi.clicked.connect(self.rimuovi)
-        self.visualizza()
+        self.btnSalva.clicked.connect(self.salva_modifiche)
+        self.btnRimuovi.clicked.connect(self.rimuovi_staff)
+        self.visualizza_info()
         self.btnOrario.clicked.connect(self.apriGestioneOrario)
         self.btnIndietro.clicked.connect(self.finestra.close)
-        self.btnReset.clicked.connect(self.reset)
+        self.btnReset.clicked.connect(self.reset_password)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

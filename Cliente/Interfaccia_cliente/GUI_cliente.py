@@ -16,6 +16,7 @@ from Gestione_posta_e_account.Posta.Model.Messaggio import Messaggio
 from Gestione_allenamento.Model.Scheda_esercizi import Esercizi
 from Gestione_allenamento.View.Esercizi_da_svolgere import scheda_allenamento
 
+
 class GUI_client(object):
     username = ""
     objMessaggio = Messaggio()
@@ -37,7 +38,7 @@ class GUI_client(object):
     def apriDietaCliente(self):
         self.dieta_cliente = QtWidgets.QMainWindow()
         self.ui = dieta_cliente()
-        self.ui.setupUi(self.dieta_cliente,self.username)
+        self.ui.setupUi(self.dieta_cliente, self.username)
         self.dieta_cliente.show()
 
     def apriCasellaMessaggio(self):
@@ -98,7 +99,7 @@ class GUI_client(object):
     def scriviSuLista(self):
         for elem in self.getListaFiles(self.percorso_files_diete):
             if elem.startswith(self.username):
-                self.lstDieta.addItem("Dieta "+self.username)
+                self.lstDieta.addItem("Dieta " + self.username)
 
     def getListaFiles(self, percorso):
         return [f for f in listdir(percorso) if isfile(join(percorso, f))]
@@ -110,7 +111,7 @@ class GUI_client(object):
             if elem.startswith(self.username):
                 nome_file = elem.split(".")
                 os.chdir("./Dieta/Data/files_diete_personali/")
-                os.system(self.username+"."+nome_file[1])
+                os.system(self.username + "." + nome_file[1])
                 os.chdir("..")
                 os.chdir("..")
                 os.chdir("..")
@@ -195,7 +196,7 @@ class GUI_client(object):
         self.btnMostraPassword.show()
 
     def mostraPassword(self):
-         self.txtPassword.setEchoMode(QtWidgets.QLineEdit.Normal)
+        self.txtPassword.setEchoMode(QtWidgets.QLineEdit.Normal)
 
     def nascondiPassword(self):
         self.txtPassword.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -203,7 +204,7 @@ class GUI_client(object):
     def inserisciSuLista(self):
         oggetto_scheda = self.objSchedaEsercizi.getOggetto(self.username)
         if oggetto_scheda != 0:
-            self.lstSchedaAllenamento.addItem("Scheda dal "+oggetto_scheda.data_inizio)
+            self.lstSchedaAllenamento.addItem("Scheda dal " + oggetto_scheda.data_inizio)
 
     def annullaPrenotazione(self):
         try:
@@ -218,8 +219,7 @@ class GUI_client(object):
         except Exception:
             self.objMetodi.show_popup_exception("Errore.")
 
-
-    def setupUi(self, Form,username):
+    def setupUi(self, Form, username):
         self.username = username
         Form.setObjectName("Form")
         Form.resize(597, 647)
@@ -378,10 +378,10 @@ class GUI_client(object):
         self.lblTitolo_2.setGeometry(QtCore.QRect(0, 0, 91, 21))
         self.lblTitolo_2.setObjectName("lblTitolo_2")
         self.btnFabbisogno = QtWidgets.QPushButton(self.Pagina_3)
-        self.btnFabbisogno.setGeometry(QtCore.QRect(340, 290, 113, 32))
+        self.btnFabbisogno.setGeometry(QtCore.QRect(300, 290, 113, 32))
         self.btnFabbisogno.setObjectName("btnFabbisogno")
         self.lblTesto_3 = QtWidgets.QLabel(self.Pagina_3)
-        self.lblTesto_3.setGeometry(QtCore.QRect(10, 290, 330, 31))
+        self.lblTesto_3.setGeometry(QtCore.QRect(50, 290, 250, 31))
         self.lblTesto_3.setObjectName("lblTesto_3")
         self.lblSfondo_3 = QtWidgets.QLabel(self.Pagina_3)
         self.lblSfondo_3.setGeometry(QtCore.QRect(-1, 0, 471, 401))
@@ -506,9 +506,9 @@ class GUI_client(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Bentornato, "+self.username))
+        Form.setWindowTitle(_translate("Form", "Bentornato, " + self.username))
         self.lblMsgDiBenvenuto.setText(_translate("Form",
-                                      "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Bentornato </span></p></body></html>"))
+                                                  "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Bentornato </span></p></body></html>"))
         self.lblNomeUtente.setText(_translate("Form", "<html><head/><body><p><br/></p></body></html>"))
         self.btnCambioPassword.setText(_translate("Form", "Cambia password"))
         self.btnLeTueInfo.setText(_translate("Form", "Le tue info"))
@@ -525,20 +525,21 @@ class GUI_client(object):
         self.toolBox.setItemText(self.toolBox.indexOf(self.Pagina_1), _translate("Form", "Informazioni personali"))
         self.lblTitolo.setText(_translate("Form", "<html><head/><body><p>La tua scheda allenamento:</p></body></html>"))
         self.lblTesto_2.setText(_translate("Form",
-                                        "<html><head/><body><p><span style=\" color:#000000;\">Scopri gli esercizi e seleziona preferenze</span></p></body></html>"))
+                                           "<html><head/><body><p><span style=\" color:#000000;\">Scopri gli esercizi e seleziona preferenze</span></p></body></html>"))
         self.btnEserciziCorsi.setText(_translate("Form", "Clicca qui!"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.Pagina_2), _translate("Form", "Allenamento"))
         self.lblTitolo_2.setText(_translate("Form", "<html><head/><body><p>La tua dieta: </p></body></html>"))
         self.btnFabbisogno.setText(_translate("Form", "Clicca qui!"))
         self.lblTesto_3.setText(
-            _translate("Form", "<html><head/><body><p>Maggiori informazioni sulla tua forma fisica e sulle diete</p></body></html>"))
+            _translate("Form", "<html><head/><body><p>Dacci informazioni sulla tua alimentazione<br> e scopri di"
+                               " più sulla tua forma fisica</p></body></html>"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.Pagina_3), _translate("Form", "Dieta"))
         self.lblTitolo_3.setText(_translate("Form", "<html><head/><body><p>Le tue Prenotazioni:</p></body></html>"))
         self.lblTesto_4.setText(_translate("Form", "<html><head/><body><p>Per prenotare</p></body></html>"))
         self.btnPrenotazioni.setText(_translate("Form", "Clicca qui!"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.Pagina_4), _translate("Form", "Prenotazioni"))
         self.lblTitolo_4.setText(_translate("Form",
-                                        "<html><head/><body><p align=\"center\">Qui riceverai le notifiche </p><p align=\"center\">riguardanti il tuo abbonamento!</p></body></html>"))
+                                            "<html><head/><body><p align=\"center\">Qui riceverai le notifiche </p><p align=\"center\">riguardanti il tuo abbonamento!</p></body></html>"))
         self.btnNuovoMessaggio.setText(_translate("Form", "Scrivi Messaggio"))
         self.btnEliminaMessaggio.setText(_translate("Form", "Elimina Messaggio"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.Pagina_5), _translate("Form", "Messaggi"))

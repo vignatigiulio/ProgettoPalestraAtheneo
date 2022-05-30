@@ -6,7 +6,7 @@ from Admin.Attrezzi.Controller.Aggiunta_attrezzo_controller import metodi_aggiun
 class aggiungi_attrezzo(object):
     Controller = metodi_aggiungi_attrezzo()
 
-    def salva(self):
+    def salva_attrezzatura(self):
         self.Controller.salva(self.txtDescr.text(), self.dtAcquisto.text(), self.txtQuantita.text(),
                                self.txtPrezzo.text(), self.dtMan.text())
         self.Window.close()
@@ -87,7 +87,7 @@ class aggiungi_attrezzo(object):
         MainWindow.setStatusBar(self.statusbar)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.btnSalva.clicked.connect(self.salva)
+        self.btnSalva.clicked.connect(self.salva_attrezzatura)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

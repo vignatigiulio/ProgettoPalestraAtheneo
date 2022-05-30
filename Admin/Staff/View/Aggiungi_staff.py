@@ -7,7 +7,7 @@ class aggiungi_personale(object):
     objMetodi = GestioneOggetti()
     Controller = metodi_gestione_staff()
 
-    def salva(self):
+    def salva_staff(self):
         try:
             if self.txtNome.text() != "" and self.txtCognome.text() != "" and self.txtCodiceFiscale.text() != "" \
                     and self.txtOre.text() != "" and self.txtTitolo.text() != "":
@@ -109,7 +109,7 @@ class aggiungi_personale(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.btnSalva.clicked.connect(self.salva)
+        self.btnSalva.clicked.connect(self.salva_staff)
         self.btnAnnulla.clicked.connect(self.cancella)
         self.btnIndietro.clicked.connect(self.saveWindow.close)
 
