@@ -10,9 +10,11 @@ class casella_risposta(object):
     Controller = metodi_gestione_messaggi()
 
     def scrivi_messaggio(self):
-        self.Controller.spedisciMessaggio(self.oggetto_messaggio.mittente, self.oggetto_messaggio.destinatario,
-                                          self.ptxTesto.toPlainText(), datetime.today().strftime('%Y-%m-%d-%H:%M'))
-        self.objMetodi.show_popup_ok("il tuo messaggio è stato inviato correttamente")
+        if self.Controller.spedisciMessaggio(self.oggetto_messaggio.mittente, self.oggetto_messaggio.destinatario,
+                                          self.ptxTesto.toPlainText(), datetime.today().strftime('%Y-%m-%d-%H:%M')):
+            self.objMetodi.show_popup_ok("Il tuo messaggio è stato inviato correttamente")
+        else:
+            self.objMetodi.show_popup_exception("Impossibile mandare un messaggio vuoto.")
         self.finestra.close()
 
     def setupUi(self, MainWindow, oggetto_messaggio):

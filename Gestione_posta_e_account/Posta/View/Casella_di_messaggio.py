@@ -22,19 +22,23 @@ class Casella_di_messaggio(object):
              self.cmbDestinatari.addItem("P-" + elem)
 
     def scrittura_file_messaggi(self):
+        esito = False
         if self.chkClienti.isChecked() == False and self.chkStaff.isChecked() == False:
             destinatario = self.cmbDestinatari.currentText().split("-")
-            self.Controller.spedisciMessaggio(destinatario[1], self.username, self.ptxTesto.toPlainText(),
+            esito = self.Controller.spedisciMessaggio(destinatario[1], self.username, self.ptxTesto.toPlainText(),
                                               datetime.today().strftime('%Y-%m-%d-%H:%M'))
         if self.chkClienti.isChecked() == True:
             for elem in self.Controller.getListaClienti():
-                self.Controller.spedisciMessaggio(elem, self.username, self.ptxTesto.toPlainText(),
+                esito = self.Controller.spedisciMessaggio(elem, self.username, self.ptxTesto.toPlainText(),
                                                   datetime.today().strftime('%Y-%m-%d-%H:%M'))
         if self.chkStaff.isChecked() == True:
             for elem in self.Controller.getListaStaff():
-                self.Controller.spedisciMessaggio(elem, self.username, self.ptxTesto.toPlainText(),
+                esito = self.Controller.spedisciMessaggio(elem, self.username, self.ptxTesto.toPlainText(),
                                                   datetime.today().strftime('%Y-%m-%d-%H:%M'))
-        self.objMetodi.show_popup_ok("il tuo contenuto è stato inviato correttamente")
+        if esito == True:
+            self.objMetodi.show_popup_ok("il tuo contenuto è stato inviato correttamente")
+        else:
+            self.objMetodi.show_popup_exception("Impossibile mandare un messaggio vuoto.")
         self.finestra.close()
 
     def selezioneDestinatario(self):

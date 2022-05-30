@@ -1,15 +1,23 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
-
+from Metodi_gestione_oggetti.GestioneOggetti import GestioneOggetti
 from Admin.Attrezzi.Controller.Aggiunta_attrezzo_controller import metodi_aggiungi_attrezzo
 
 class aggiungi_attrezzo(object):
     Controller = metodi_aggiungi_attrezzo()
-
+    objMetodi = GestioneOggetti()
     def salva_attrezzatura(self):
-        self.Controller.salva(self.txtDescr.text(), self.dtAcquisto.text(), self.txtQuantita.text(),
-                               self.txtPrezzo.text(), self.dtMan.text())
-        self.Window.close()
+        try:
+            if self.txtDescr.text() != "" and self.dtAcquisto.text() != "" and self.txtQuantita.text() != "" and\
+                                   self.txtPrezzo.text() != "" and self.dtMan.text() != "":
+                self.Controller.salva(self.txtDescr.text(), self.dtAcquisto.text(), self.txtQuantita.text(),
+                                   self.txtPrezzo.text(), self.dtMan.text())
+                self.Window.close()
+            else:
+                self.objMetodi.show_popup_exception("È necessario riempire ogni campo.")
+        except Exception:
+            self.objMetodi.show_popup_exception("Errore.")
+
 
 
     def setupUi(self, MainWindow):

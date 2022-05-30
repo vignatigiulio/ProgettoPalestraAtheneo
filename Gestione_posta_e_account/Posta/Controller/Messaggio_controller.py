@@ -14,8 +14,12 @@ class metodi_gestione_messaggi(object):
         return self.objStaff.get_lista()
 
     def spedisciMessaggio(self, destinatario, username, testo, data):
-        messaggi = Messaggio(username, destinatario, testo, data)
-        messaggi.addToList(messaggi)
+        if testo.replace(" ", "") != "":
+            messaggi = Messaggio(username, destinatario, testo, data)
+            messaggi.addToList(messaggi)
+            return True
+        else:
+            return False
 
     def selezioneDestinatario(self, chkClienti, chkStaff):
         if chkClienti or chkStaff:
