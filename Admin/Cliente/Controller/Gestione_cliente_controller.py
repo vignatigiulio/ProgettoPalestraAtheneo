@@ -9,9 +9,9 @@ class metodi_gestione_cliente(object):
 
     def salva(self, nome, cognome, luogo_nascita, codice_fiscale, sesso, data_nascita):
         password = "Atheneo2022"
-        oggetto_allenamento = self.objAbbonamento.getObj()
+        oggetto_abbonamento = self.objAbbonamento.getObj()
         objCliente = Cliente(nome.replace(" ", ""), cognome.replace(" ", ""), sesso, data_nascita, luogo_nascita,
-                             codice_fiscale, password, oggetto_allenamento)
+                             codice_fiscale, password, oggetto_abbonamento)
         objCliente.aggiungiAllaLista(objCliente)
         objCliente.scriviLista()
 
